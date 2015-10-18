@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.startButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.button31 = new System.Windows.Forms.Button();
@@ -56,19 +56,23 @@
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.finishButton = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button1
+            // startButton
             // 
-            this.button1.Location = new System.Drawing.Point(12, 324);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.startButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.startButton.Location = new System.Drawing.Point(12, 313);
+            this.startButton.Name = "startButton";
+            this.startButton.Size = new System.Drawing.Size(116, 34);
+            this.startButton.TabIndex = 0;
+            this.startButton.Text = "Light \'em!";
+            this.startButton.UseVisualStyleBackColor = true;
+            this.startButton.Click += new System.EventHandler(this.button1_Click);
             // 
             // panel1
             // 
@@ -111,6 +115,7 @@
             this.tableLayoutPanel1.Controls.Add(this.button5, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.button4, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.button3, 0, 0);
+            this.tableLayoutPanel1.Enabled = false;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 5;
@@ -124,7 +129,7 @@
             // 
             // button31
             // 
-            this.button31.BackColor = System.Drawing.Color.DarkGreen;
+            this.button31.BackColor = System.Drawing.Color.LightGray;
             this.button31.Location = new System.Drawing.Point(301, 225);
             this.button31.Name = "button31";
             this.button31.Size = new System.Drawing.Size(74, 50);
@@ -324,36 +329,59 @@
             this.button3.TabIndex = 3;
             this.button3.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // finishButton
             // 
-            this.button2.Location = new System.Drawing.Point(247, 324);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(144, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Restart Game";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.restart_Click);
+            this.finishButton.Enabled = false;
+            this.finishButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.finishButton.Location = new System.Drawing.Point(247, 313);
+            this.finishButton.Name = "finishButton";
+            this.finishButton.Size = new System.Drawing.Size(144, 34);
+            this.finishButton.TabIndex = 2;
+            this.finishButton.Text = "Uh.. I can\'t!";
+            this.finishButton.UseVisualStyleBackColor = true;
+            this.finishButton.Click += new System.EventHandler(this.finishGame_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Enabled = false;
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.textBox1.Location = new System.Drawing.Point(158, 320);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(75, 27);
+            this.textBox1.TabIndex = 3;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(155, 304);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(58, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Position hit";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(406, 365);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.finishButton);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.startButton);
             this.Name = "Form1";
             this.Text = "Lights Out v0.1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button startButton;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button button31;
@@ -381,7 +409,10 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button finishButton;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label1;
+
     }
 }
 

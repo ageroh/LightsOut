@@ -13,3 +13,9 @@ c:\users\ageroh\documents\visual studio 2015\Projects\LightsOut\LightsOut\obj\De
 C:\Users\Administrator\Documents\Visual Studio 2015\Projects\LightsOut\LightsOut\bin\Debug\LightsOut.exe.config
 C:\Users\Administrator\Documents\Visual Studio 2015\Projects\LightsOut\LightsOut\obj\Debug\LightsOut.exe
 C:\Users\Administrator\Documents\Visual Studio 2015\Projects\LightsOut\LightsOut\obj\Debug\LightsOut.pdb
+C:\Users\Administrator\Documents\Visual Studio 2015\Projects\LightsOut\LightsOut\bin\Debug\LightsOut.exe
+C:\Users\Administrator\Documents\Visual Studio 2015\Projects\LightsOut\LightsOut\bin\Debug\LightsOut.pdb
+C:\Users\Administrator\Documents\Visual Studio 2015\Projects\LightsOut\LightsOut\obj\Debug\LightsOut.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Documents\Visual Studio 2015\Projects\LightsOut\LightsOut\obj\Debug\LightsOut.Form1.resources
+C:\Users\Administrator\Documents\Visual Studio 2015\Projects\LightsOut\LightsOut\obj\Debug\LightsOut.Properties.Resources.resources
+C:\Users\Administrator\Documents\Visual Studio 2015\Projects\LightsOut\LightsOut\obj\Debug\LightsOut.csproj.GenerateResource.Cache
