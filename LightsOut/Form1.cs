@@ -25,7 +25,7 @@ namespace LightsOut
         public bool WinnedTheGame { get; set; }
 
         // here we keep track of solutions that have been found for the game instance.
-        public static List<Light> listRandomFirstCell = new List<Light>();
+        public static List<Light[,]> notSolvedMatrixes = new List<Light[,]>();
 
         private void finishGame_Click(object sender, EventArgs e)
         {
@@ -118,9 +118,17 @@ namespace LightsOut
                 btn.BackColor = Color.DarkOliveGreen;
         }
 
+        protected void ToggleLight(Button btn, bool On)
+        {
+            if (On)
+                btn.BackColor = Color.LightGreen;
+            else
+                btn.BackColor = Color.DarkOliveGreen;
+        }
+
         // this is the way to map LightsAray to main Interface of winforms, GetControlFromPosition() gives the correct visible possition of
         // button in oder to match the Light in the Array to the Button in the interface.
-        protected void ToggleLightToButton(Light light)
+        protected void ToggleLightToButton(Light light, bool init = false)
         {
             if (light == null)
                 return;
@@ -129,16 +137,25 @@ namespace LightsOut
             if (ctrl != null)
             {
                 var btn = ctrl as Button;
-                ToggleLight(btn);
+                if (init)
+                    ToggleLight(btn, (light.Switch == Switch.On ? true : false));
+                else
+                    ToggleLight(btn);
+            }
+        }
+
+        protected void ToggleLightToButton(Light[,] Matrix)
+        {
+            foreach (var li in Matrix)
+            {
+                ToggleLightToButton(li, true);
             }
         }
 
 
-
         private void button1_Click(object sender, EventArgs e)
         {
-            Light light = logic.RandomMatrixGeneration(listRandomFirstCell);
-            if (light == null)
+            if (!logic.Startup())
             {
                 MessageBox.Show("Failed to propose a true solution for this super game...", "Game init failed!");
                 ClearGame();
@@ -146,7 +163,7 @@ namespace LightsOut
             }
 
             // toggle single one light to begin!
-            ToggleLightToButton(light);
+            ToggleLightToButton(logic.GetMatrix());
 
             GameStarted();
         }

@@ -22,12 +22,12 @@ namespace LightsOut
     /// </summary>
     public class LightsOut
     {
-        private Light[,] LightsArray { get; set; }
+        private Light[,] LightsMatrix { get; set; }
         private int N { get; set; }
         public LightsOut(int N)
         {
             this.N = N;
-            LightsArray = new Light[N, N];
+            LightsMatrix = new Light[N, N];
             Init();
             ConnectNodes();
         }
@@ -38,10 +38,10 @@ namespace LightsOut
             {
                 for (int j = 0; j < N; j++)
                 {
-                    LightsArray[i,j].Top = getTop(i, j);
-                    LightsArray[i,j].Bottom = getBottom(i, j);
-                    LightsArray[i,j].Left = getLeft(i, j);
-                    LightsArray[i,j].Right = getRight(i, j);
+                    LightsMatrix[i,j].Top = getTop(i, j);
+                    LightsMatrix[i,j].Bottom = getBottom(i, j);
+                    LightsMatrix[i,j].Left = getLeft(i, j);
+                    LightsMatrix[i,j].Right = getRight(i, j);
                 }
             }
 
@@ -55,7 +55,7 @@ namespace LightsOut
             if (j >= N)
                 throw new InvalidOperationException("Not permited node on Right");    // safety check
 
-            return LightsArray[i, j + 1];
+            return LightsMatrix[i, j + 1];
         }
 
         protected Light getLeft(int i, int j)
@@ -65,7 +65,7 @@ namespace LightsOut
             if (j >= N)
                 throw new InvalidOperationException("Not permited node on Left");    // safety check
 
-            return LightsArray[i, j - 1];
+            return LightsMatrix[i, j - 1];
         }
 
         protected Light getBottom(int i, int j)
@@ -76,7 +76,7 @@ namespace LightsOut
             if (i >= N)
                 throw new InvalidOperationException("Not permited node on Bottom");    // safety check
 
-            return LightsArray[i + 1, j];
+            return LightsMatrix[i + 1, j];
         }
 
         protected Light getTop(int i, int j)
@@ -86,7 +86,7 @@ namespace LightsOut
             if (i >= N)
                 throw new InvalidOperationException("Not permited node on Top");    // safety check
 
-            return LightsArray[i - 1, j];
+            return LightsMatrix[i - 1, j];
         }
 
         private void Init()
@@ -96,7 +96,7 @@ namespace LightsOut
             {
                 for (int j = 0; j < N; j++)
                 {
-                    LightsArray[i, j] = new Light()
+                    LightsMatrix[i, j] = new Light()
                     {
                         Switch = Switch.Off,
                         Row = i,
@@ -111,7 +111,7 @@ namespace LightsOut
             if (row < 0 || row >= N || column < 0 || column >= N) // safety check for boundaries of array.
                 return null;
 
-            return LightsArray[row, column];
+            return LightsMatrix[row, column];
         }
 
 
@@ -144,33 +144,51 @@ namespace LightsOut
             }
         }
 
-
-        public Light RandomMatrixGeneration(List<Light> listRandomFirstCell)
+        public Light[,] GetMatrix()
         {
-            // start light from random cell
+            return this.LightsMatrix;
+        }
+
+        /// <summary>
+        /// For given NxN Matrix after initialization, random matrix is generated
+        /// Polyonimial algorithm for its solution is invoked, and if path for soltion is found then matrix is given as solution.
+        /// </summary>
+        /// <param name="listRandomFirstCell"></param>
+        /// <returns></returns>
+        public bool Startup()
+        {
+            Light[,] randomGenerated = GenerateRandomMatrix();
+            if (SolveLightsOut(randomGenerated))
+            {
+                return true;
+            }
+            Startup();
+            return false;
+        }
+
+        private bool SolveLightsOut(Light[,] LightsArray)
+        {
+            return true; // implement this..
+        }
+        
+        private Light[,] GenerateRandomMatrix()
+        {
             Random rnd = new Random();
-            int x = rnd.Next(N);
-            int y = rnd.Next(N);
+            for (int i = 0; i < N; i++)
+                for (int j = 0; j < N; j++)
+                {
+                    // NextDouble is fast enough
+                    this.LightsMatrix[i, j].Switch = (rnd.NextDouble() > 0.5 ? Switch.Off : Switch.On); 
+                }
 
-            // find one random light 
-            Light light = GetLight(x, y);
-            ToggleLight(light);
-
-            listRandomFirstCell.Add(GetLight(x, y));
-
-            // do the tries.
-            // ...
-            //...
-
-            return listRandomFirstCell.LastOrDefault();
-
+            return LightsMatrix;
         }
 
         internal bool IsSolved()
         {
             for (int i = 0; i < N; i++)
                 for (int j = 0; j < N; j++)
-                    if (LightsArray[i, j].Switch == Switch.On)
+                    if (LightsMatrix[i, j].Switch == Switch.On)
                         return false;
 
             return true;
@@ -180,7 +198,7 @@ namespace LightsOut
         {
             for (int i = 0; i < N; i++)
                 for (int j = 0; j < N; j++)
-                    LightsArray[i, j].Switch = Switch.Off;
+                    LightsMatrix[i, j].Switch = Switch.Off;
         }
     }
 }
