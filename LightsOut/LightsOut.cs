@@ -11,13 +11,15 @@ namespace LightsOut
     }
 
     /// <summary>
-    /// We create the class for main logic here. An array of NxN items is firstly initialized with elements
-    /// of Cell. It's Cell represents a light in the NxN array of lights. This class may handle a NxN implementation 
-    /// but for now we stand for a 5x5 matrix. After the matrix is initialized with Cells, a next iteration occurs 
+    /// We create the class for main backend logic here. An array of NxN items is firstly initialized with elements
+    /// of Light. It's represents a light in the NxN array of lights. This class may handle a NxN implementation 
+    /// but for now we stand for a 5x5 matrix, but only NxN (not NxM). After the matrix is initialized with Lights, an iteration occurs 
     /// for every light in order to match its adjacent lights (top, left, right, bottom). At last a graph with nodes of Cell
     /// is the result of the initialization and mapping, ready to provide the set for the algorithm of random generation of 
-    /// solution for the game. RandomMatrixGeneration() provides the first random solution for the game. This means that at least one 
-    /// solution could be found, but not least.
+    /// solution for the game. RandomMatrixGeneration() provides a random solution for the game, if it is solvable then is provided to UI. 
+    /// The UI is reponsible to draw buttons, in an TableLayoutPanel class, that a provides GetPosition for control and from control, which
+    /// are very useful to map UI to logical class (which is based on jagged arrays).
+    /// The implementaion of algorithm to provide solution for the problem, is based on Gausian trasformations, and can be found in LightsOutSolver.
     /// 
     /// </summary>
     public class LightsOut
@@ -158,7 +160,7 @@ namespace LightsOut
         /// </summary>
         /// <param name="listRandomFirstCell"></param>
         /// <returns></returns>
-        public bool Startup(Dictionary<int, Light[,]> notSolvedMatrixes)
+        public bool Startup()
         {
             // risky but always there is a solution..
             //if (notSolvedMatrixes == null)
@@ -180,7 +182,7 @@ namespace LightsOut
             }
 
             //notSolvedMatrixes.Add(randomGenerated.GetHashCode(), randomGenerated);
-            Startup(notSolvedMatrixes);
+            Startup();
             return false;
         }
 

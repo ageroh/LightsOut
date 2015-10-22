@@ -6,20 +6,24 @@ using System.Threading.Tasks;
 
 namespace LightsOut
 {
+    /// <summary>
+    /// The algorithm provides a solution for a Matrix of NxN table, for the Lights out problem
+    /// Its been provided a matrix with the a proposed possible solution in solve(). If one is found
+    /// then this previously provided is given for test to UI.
+    /// 
+    /// </summary>
     public static class LightsOutSolver
     {
-        // --- finite field matrix solver
-
         private static int[][] mat { get; set; }
         private static int [][] cells { get; set; }
         private static int[] cols { get; set; }
         public static int imgcount { get; private set; }
 
-        private static int m;      // count of rows of the matrix
-        private static int n;      // count of columns of the matrix
-        private static int np;     // count of columns of the enlarged matrix
-        private static int r;      // minimum rank of the matrix
-        private static int maxr;   // maximum rank of the matrix
+        private static int m;      
+        private static int n;      
+        private static int np;     
+        private static int r;      
+        private static int maxr;   
         private static int N;
 
         public static void InitLightsOutSolver(int n)
@@ -70,7 +74,8 @@ namespace LightsOut
                 {
                     var i = row * N + col;
                     int[] line = new int[N*N];
-                    mat[i] = line;                    for (int j = 0; j < n; j++) line[j] = 0;
+                    mat[i] = line;
+                    for (int j = 0; j < n; j++) line[j] = 0;
                     line[i] = 1;
                     if (col > 0) line[i - 1] = 1;
                     if (row > 0) line[i - N] = 1;

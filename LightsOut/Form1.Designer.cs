@@ -1,6 +1,6 @@
 ﻿namespace LightsOut
 {
-    partial class Form1
+    partial class LightsOutForm
     {
         /// <summary>
         /// Required designer variable.
@@ -72,7 +72,7 @@
             this.startButton.TabIndex = 0;
             this.startButton.Text = "Light \'em!";
             this.startButton.UseVisualStyleBackColor = true;
-            this.startButton.Click += new System.EventHandler(this.button1_Click);
+            this.startButton.Click += new System.EventHandler(this.start_click);
             // 
             // panel1
             // 

@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace LightsOut
 {
-    public partial class Form1 : Form
+    public partial class LightsOutForm : Form
     {
-        public Form1()
+        public LightsOutForm()
         {
             InitializeComponent();
             
@@ -39,7 +39,7 @@ namespace LightsOut
             
         }
 
-        // we do initialize here because we dont want the winform to be accessible by the user when solution is calculated.
+        // we do initialize here in order to draw buttons, and create dynamic handlers for them
         private void Form1_Load(object sender, EventArgs e)
         {
             ClearGame();
@@ -66,7 +66,7 @@ namespace LightsOut
             WinnedTheGame = false;
         }
 
-
+        // a click of button occurs
         private void HandleClick(object sender, EventArgs e)
         {
             if (sender is Control)
@@ -84,6 +84,9 @@ namespace LightsOut
 
         }
 
+        /// <summary>
+        /// check if player had win the game!
+        /// </summary>
         private void Wins()
         {
             MessageBox.Show("Congratulations! You 've made it! Thank you for playing.", "Winner!");
@@ -153,10 +156,10 @@ namespace LightsOut
         }
 
 
-        private void button1_Click(object sender, EventArgs e)
+        private void start_click(object sender, EventArgs e)
         {
 
-            logic.Startup(notSolvedMatrixes);
+            logic.Startup();
             //MessageBox.Show("Failed to propose a true solution for this super game...", "Game init failed!");
             //ClearGame();
             //return;
