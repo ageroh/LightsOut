@@ -30,6 +30,7 @@ namespace LightsOut
             LightsMatrix = new Light[N, N];
             Init();
             ConnectNodes();
+            cnt = 0;
         }
 
         private void ConnectNodes()
@@ -149,28 +150,70 @@ namespace LightsOut
             return this.LightsMatrix;
         }
 
+        private int cnt { get; set; }
+
         /// <summary>
         /// For given NxN Matrix after initialization, random matrix is generated
         /// Polyonimial algorithm for its solution is invoked, and if path for soltion is found then matrix is given as solution.
         /// </summary>
         /// <param name="listRandomFirstCell"></param>
         /// <returns></returns>
-        public bool Startup()
+        public bool Startup(Dictionary<int, Light[,]> notSolvedMatrixes)
         {
+            // risky but always there is a solution..
+            //if (notSolvedMatrixes == null)
+            //    return false;
+            
             Light[,] randomGenerated = GenerateRandomMatrix();
-            if (SolveLightsOut(randomGenerated))
+                
+            //// if a solution is not provided previously with this matrix, then try another
+            //if(notSolvedMatrixes.ContainsKey(randomGenerated.GetHashCode()))
+            //{
+            //    notSolvedMatrixes.Add(randomGenerated.GetHashCode(), randomGenerated);
+            //    Startup(notSolvedMatrixes);
+            //    return false;
+            //}
+                
+            if (SolveLightsOut(randomGenerated, N))
             {
                 return true;
             }
-            Startup();
+
+            //notSolvedMatrixes.Add(randomGenerated.GetHashCode(), randomGenerated);
+            Startup(notSolvedMatrixes);
             return false;
         }
 
-        private bool SolveLightsOut(Light[,] LightsArray)
+        //compare two Martix of lights
+        private bool CompareMatrixes(Light[,] firtsdMatrix, Light[,] secondMatrix)
         {
-            return true; // implement this..
+            for(int i = 0; i< N; i++)
+                for (int j = 0; j < N; j++)
+                    if(firtsdMatrix[i,j] != secondMatrix[i,j])
+                        return false;
+            return true;
         }
         
+        private static bool SolveLightsOut(Light[,] LightsArray, int N)
+        {
+            LightsOutSolver.InitLightsOutSolver(N);
+
+            return LightsOutSolver.solve(ConvertLightsToInt(LightsArray, N));
+        }
+
+        private static int[][] ConvertLightsToInt(Light[,] lightsArray, int N)
+        {
+            int[][] arr = new int[N][];
+            for (int i = 0; i < N; i++)
+                arr[i] = new int[N];
+
+            for (int i = 0; i < N; i++)
+                for (int j = 0; j < N; j++)
+                    arr[i][j] = (lightsArray[i, j].Switch == Switch.Off ? 0 : 1);
+
+            return arr;
+        }
+
         private Light[,] GenerateRandomMatrix()
         {
             Random rnd = new Random();

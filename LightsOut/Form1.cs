@@ -25,7 +25,7 @@ namespace LightsOut
         public bool WinnedTheGame { get; set; }
 
         // here we keep track of solutions that have been found for the game instance.
-        public static List<Light[,]> notSolvedMatrixes = new List<Light[,]>();
+        public static Dictionary<int, Light[,]> notSolvedMatrixes = new Dictionary<int, Light[,]>();
 
         private void finishGame_Click(object sender, EventArgs e)
         {
@@ -155,13 +155,12 @@ namespace LightsOut
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (!logic.Startup())
-            {
-                MessageBox.Show("Failed to propose a true solution for this super game...", "Game init failed!");
-                ClearGame();
-                return;
-            }
 
+            logic.Startup(notSolvedMatrixes);
+            //MessageBox.Show("Failed to propose a true solution for this super game...", "Game init failed!");
+            //ClearGame();
+            //return;
+            
             // toggle single one light to begin!
             ToggleLightToButton(logic.GetMatrix());
 
